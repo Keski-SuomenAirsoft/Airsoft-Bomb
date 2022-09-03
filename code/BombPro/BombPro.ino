@@ -34,9 +34,9 @@ char keys[ROWS][COLS] = {
 };
 
 byte rowPins[ROWS] = {
-  A4, A5, 13, 12}; //connect to the row pinouts of the keypad
+  A0, A1, A2, A3}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {
-  A0, A1, A2, A3
+  A4, A5, 13, 12
 }; //connect to the column pinouts of the keypad
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
@@ -106,11 +106,11 @@ void setup(){
   Serial.begin(9600);
   //  lcd.init();                      // initialize the lcd 
   //  lcd.backlight();
-  lcd.setCursor(3,0);
+  lcd.setCursor(2,0);
   tone(tonepin,2400,30);
-  lcd.print("IGNIS ONE");// you can add your team name or someting cool
-  lcd.setCursor(0,1);
-  lcd.print(" AIRSOFT SYSTEM");// you can add your team name or someting cool
+  lcd.print("Keski-Suomen ");// you can add your team name or someting cool
+  lcd.setCursor(1,1);
+  lcd.print("  Airsoft Ry");// you can add your team name or someting cool
   keypad.setHoldTime(50);
   keypad.setDebounceTime(50);
   keypad.addEventListener(keypadEvent);
@@ -214,7 +214,7 @@ void keypadEvent(KeypadEvent key){
          case 'd': defuseando= false;
          //Serial.println("d Releases");
          break;
-         case 'c': cancelando=false;
+         case '#': cancelando=false;
          //Serial.println("c Releases");
          break;
       }
@@ -224,7 +224,7 @@ void keypadEvent(KeypadEvent key){
         case 'd': defuseando= true;
         //Serial.println("d hold");
         break;
-        case 'c': cancelando=true;
+        case '#': cancelando=true;
         //Serial.println("c hold");
         break;
       }
@@ -241,7 +241,7 @@ void disarmedSplash(){
     lcd.setCursor(2,0);
     lcd.print("BOMB DISARMED");
     lcd.setCursor(3,1);
-    lcd.print("GOODS WIN");
+    lcd.print("ATTACKERS WIN");
     digitalWrite(GREENLED, HIGH);  
     delay(5000);
     digitalWrite(GREENLED, LOW); 
@@ -284,8 +284,8 @@ void explodeSplash(){
   cls();
   delay(100);
   endGame = false;
-  lcd.setCursor(1,0);
-  lcd.print("TERRORISTS WIN");
+  lcd.setCursor(2,0);
+  lcd.print("DFENDERS WIN");
   lcd.setCursor(4,1);
   lcd.print("GAME OVER");
   for(int i = 200; i>0; i--)// this is the ultra hi definition explosion sound xD
@@ -329,4 +329,3 @@ void explodeSplash(){
     }  
   } 
 }
-
